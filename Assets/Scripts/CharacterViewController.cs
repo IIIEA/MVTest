@@ -5,31 +5,31 @@ namespace DefaultNamespace
     public class CharacterViewController : IDisposable
     {
         private readonly CharacterView _characterView;
-        private readonly CharacterPresenter _characterPresenter;
+        private readonly CharacterSelector _characterSelector;
 
-        public CharacterViewController(CharacterView characterView, CharacterPresenter characterPresenter)
+        public CharacterViewController(CharacterView characterView, CharacterSelector characterSelector)
         {
             _characterView = characterView;
-            _characterPresenter = characterPresenter;
-            _characterPresenter.OnSelectedChanged += CharacterPresenterOnOnSelectedChanged;
-            _characterPresenter.OnTakeDamage += CharacterPresenterOnOnTakeDamage;
+            _characterSelector = characterSelector;
+            _characterSelector.selectedChanged += CharacterSelectorSelectedChanged;
+            _characterSelector.OnTakeDamage += CharacterSelectorOnTakeDamage;
         }
 
-        private void CharacterPresenterOnOnTakeDamage(int damage)
+        private void CharacterSelectorOnTakeDamage(int damage)
         {
             _characterView.UpdateHpSlider(damage);
         }
 
-        private void CharacterPresenterOnOnSelectedChanged(CharacterModel character)
+        private void CharacterSelectorSelectedChanged(CharacterModel character)
         {
             CharacterData characterData = character.CharacterInfo;
-            _characterView.SetUpView(characterData.Name, characterData.MaxHealth);
+            _characterView.SetUpView( characterData.MaxHealth);
         }
 
         public void Dispose()
         {
-            _characterPresenter.OnSelectedChanged -= CharacterPresenterOnOnSelectedChanged;
-            _characterPresenter.OnTakeDamage -= CharacterPresenterOnOnTakeDamage;
+            _characterSelector.selectedChanged -= CharacterSelectorSelectedChanged;
+            _characterSelector.OnTakeDamage -= CharacterSelectorOnTakeDamage;
         }
     }
 }

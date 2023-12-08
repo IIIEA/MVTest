@@ -1,40 +1,21 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using System.Linq;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code
 {
     public sealed class LessonHelper : MonoBehaviour
     {
-        private CharacterData[] _characterDatas;
-        
-        //TODO Inject CharacterPresentert
-        //TODO make editor button Character.DealDamage
+        [SerializeField]
+        private CharacterData[] characterDatas;
+        [SerializeField] private CharacterSelector characterSelector;
 
-        // [Inject]
-        // private void Construct(MoneyStorage moneyStorage, GemStorage gemStorage)
-        // {
-        //     _gemStorage = gemStorage;
-        //     _moneyStorage = moneyStorage;
-        // }
-        //
-        // public void AddMoney()
-        // {
-        //     _moneyStorage.AddMoney(_current);
-        // }
-        //
-        // public void SpendMoney()
-        // {
-        //     _moneyStorage.SpendMoney(_current);
-        // }
-        //
-        // public void AddGem()
-        // {
-        //     _gemStorage.AddGem(_current);
-        // }
-        //
-        // public void SpendGem()
-        // {
-        //     _gemStorage.SpendGem(_current);
-        // }
+
+
+        [ContextMenu("Show")]
+        public void Show()
+        {
+            characterSelector.Initialize(characterDatas.Select(c=> new CharacterModel(c)).ToList());
+        }
     }
 }

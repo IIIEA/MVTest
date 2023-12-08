@@ -1,5 +1,6 @@
 ﻿using System;
 
+[Serializable]
 public class CharacterModel
 {
   public event Action OnDeath;
@@ -8,9 +9,9 @@ public class CharacterModel
 
   public CharacterData CharacterInfo { get; private set; }
 
-  public CharacterModel(int currentHealth, CharacterData characterData)
+  public CharacterModel(CharacterData characterData)
   {
-    CurrentHealth = currentHealth;
+    CurrentHealth = characterData.MaxHealth;
     CharacterInfo = characterData;
   }
 
