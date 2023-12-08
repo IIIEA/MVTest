@@ -4,13 +4,14 @@ public class CharacterModel
 {
   public event Action OnDeath;
   
-  public int MaxCurrentHealth { get; private set; }
   public int CurrentHealth { get; private set; }
 
-  public CharacterModel(int currentHealth)
+  public CharacterData CharacterInfo { get; private set; }
+
+  public CharacterModel(int currentHealth, CharacterData characterData)
   {
-    MaxCurrentHealth = currentHealth;
     CurrentHealth = currentHealth;
+    CharacterInfo = characterData;
   }
 
   public void DealDamage(int damage)
